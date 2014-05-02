@@ -20,6 +20,18 @@ module Usagewatch
         df.split(" ")[-2].to_f.round(2) if `uname -r` =~ /-ARCH/
   end
 
+  def self.uw_diskavailable
+    df = `df`
+    parts = df.split(" ").map { |s| s.to_i }
+    sum = 0
+    for i in (9..parts.size - 1).step(6) do
+      sum += parts[i+1]
+    end
+    round = sum.round(2)
+    totaldiskavailable = ((round/1024)/1024).round(2)
+    totaldiskavailable
+  end
+
   # Show the percentage of CPU used
   def self.uw_cpuused
     @proc0 = File.readlines('/proc/stat').grep(/^cpu /).first.split(" ")
