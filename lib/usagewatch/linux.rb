@@ -32,6 +32,10 @@ module Usagewatch
     totaldiskavailable
   end
 
+  def self.uw_disktotal
+      self.uw_diskavailable + self.uw_diskused
+  end
+
   # Show the percentage of CPU used
   def self.uw_cpuused
     @proc0 = File.readlines('/proc/stat').grep(/^cpu /).first.split(" ")
