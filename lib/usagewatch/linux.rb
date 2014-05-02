@@ -17,6 +17,7 @@ module Usagewatch
   def self.uw_diskused_perc
     df = `df --total`
     df.split(" ").last.to_f.round(2)
+        df.split(" ")[-2].to_f.round(2) if `uname -r` =~ /-ARCH/
   end
 
   # Show the percentage of CPU used
